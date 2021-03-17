@@ -560,7 +560,7 @@
                             </div>
                             <div class="col-md-2 text-center">
                                 <button type="button" class="btn btn-success btn-lg" id="btnAddCustomer">Add</button>
-                                <button type="reset" class="btn btn-danger btn-lg" id="btnClearCustomerForm">Clear</button>
+                                <button type="reset" class="btn btn-danger btn-lg" id="btnClearCustomerFrom">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -602,6 +602,34 @@
                                 <td>Gunasekara</td>
                                 <td>Kalutara</td>
                                 <td>25000</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>C002</td>
+                                <td>Saman</td>
+                                <td>Panadura</td>
+                                <td>32000</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>C003</td>
+                                <td>Saduni</td>
+                                <td>Moratuwa</td>
+                                <td>18000</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                                         <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
@@ -669,126 +697,10 @@
 <script src="asserts/font/js/all.min.js"></script>
 <script src="asserts/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="controller/DashboardController.js"></script>
-<script>
-    //General
-    function openHome() {
-        document.getElementById('index-html').style.display="block";
-        document.getElementById('order-html').style.display="none";
-        document.getElementById('item-html').style.display="none";
-        document.getElementById('customer-html').style.display="none";
-    }
-    function openOrder() {
-        document.getElementById('index-html').style.display="none";
-        document.getElementById('order-html').style.display="block";
-        document.getElementById('item-html').style.display="none";
-        document.getElementById('customer-html').style.display="none";
-    }
-    function openItem() {
-        document.getElementById('index-html').style.display="none";
-        document.getElementById('order-html').style.display="none";
-        document.getElementById('item-html').style.display="block";
-        document.getElementById('customer-html').style.display="none";
-    }
-    function openCustomer() {
-        document.getElementById('index-html').style.display="none";
-        document.getElementById('order-html').style.display="none";
-        document.getElementById('item-html').style.display="none";
-        document.getElementById('customer-html').style.display="block";
-    }
-</script>
-<script>
-    //Customer
-
-    $('#btnClearCustomerForm').click(function () {
-        clearDataFromForm();
-    });
-
-
-    $('#btnAddCustomer').click(function () {
-        $('#tblCustomer>tr').off('click');
-
-        let cusID = $('#CustomerID').val();
-        let cusName = $('#CustomerName').val();
-        let cusAddress = $('#CustomerAddress').val();
-        let cusSalary = $('#CustomerSalary').val();
-
-        let row = "<tr>"+
-            "<td>"+cusID+"</td>"+
-            "<td>"+cusName+"</td>"+
-            "<td>"+cusAddress+"</td>"+
-            "<td>"+cusSalary+"</td>"+
-            "<td>"+
-            "<div className='btn-group' role='group' aria-label='Basic outlined example'>"+
-            "<button type='button' className='btn btn-outline-dark' data-bs-toggle='modal'"+
-            "data-bs-target='#exampleModal' data-bs-whatever='"+cusID+"'>Update"+
-            "</button>"+
-            "<button type='button' className='btn btn-outline-danger'>Delete</button>"+
-            "</div>"+
-            "</td>"+
-            "</tr>";
-
-        $('#tblCustomer').append(row);
-
-        $('#tblCustomer>tr').click(function () {
-            let id = $(this).children('td:eq(0)').text();
-            let name = $(this).children('td:eq(1)').text();
-            let address = $(this).children('td:eq(2)').text();
-            let salary = $(this).children('td:eq(3)').text();
-
-            $('#CustomerID').val(id);
-            $('#CustomerName').val(name);
-            $('#CustomerAddress').val(address);
-            $('#CustomerSalary').val(salary);
-        });
-
-        clearDataFromForm();
-
-    });
-
-    function clearDataFromForm() {
-        $('#CustomerID').val("");
-        $('#CustomerName').val("");
-        $('#CustomerAddress').val("");
-        $('#CustomerSalary').val("");
-    }
-
-    // $('#tblCustomer>tr').click(function () {
-    //     let id = $($(this).children().get(0)).text();
-    //     let name = $($(this).children().get(1)).text();
-    //     let address = $($(this).children().get(2)).text();
-    //     let salary = $($(this).children().get(3)).text();
-    //
-    //     console.log(id +" "+ name +" "+ address +" "+ salary);
-    // });
-
-    $('#CustomerID').on('keypress',function (event) {
-        if (event.which == 13){
-            $('#CustomerName').focus();
-        }
-    });
-    $('#CustomerName').on('keypress',function (event) {
-        if (event.which == 13){
-            $('#CustomerAddress').focus();
-        }
-    });
-    $('#CustomerAddress').on('keypress',function (event) {
-        if (event.which == 13){
-            $('#CustomerSalary').focus();
-        }
-    });
-    $('#CustomerSalary').on('keypress',function (event) {
-        if (event.which == 13){
-            $('#btnAddCustomer').focus();
-        }
-    });
-
-    // $('#CustomerID,#CustomerName,#CustomerAddress,#CustomerSalary').on('keypress',function (event) {
-    //     if (event.which == 13){
-    //         $('#btnAddCustomer').focus();
-    //     }
-    // });
-
-</script>
+<script src="db/database.js"></script>
+<script src="dto/CustomerDTO.js"></script>
+<script src="dto/ItemDTO.js"></script>
+<script src="controller/CustomerController.js"></script>
 <!--scripts end-->
 
 </body>
