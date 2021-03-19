@@ -32,13 +32,15 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#" onclick="openItem()">Items</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" onclick="openCustomer()">Customer</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Others
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark bg-primary" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-white" href="#" onclick="openCustomer()">Customer</a></li>
                         <li><a class="dropdown-item text-white" href="#">Employee</a></li>
                         <li>
                             <hr class="dropdown-divider bg-light">
@@ -182,7 +184,8 @@
                             </div>
                             <div class="col-12">
                                 <label for="orderDate" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="orderDate" value="2020-03-01" required disabled>
+                                <input type="date" class="form-control" id="orderDate" value="2020-03-01" required
+                                       disabled>
                             </div>
                         </form>
                     </div>
@@ -206,7 +209,8 @@
                             </div>
                             <div class="col-4">
                                 <label for="OrderNewCustomer" class="form-label"><i>For Add New</i></label>
-                                <button type="button" class="btn btn-outline-success form-control" id="OrderNewCustomer">
+                                <button type="button" class="btn btn-outline-success form-control"
+                                        id="OrderNewCustomer">
                                     <i>New</i></button>
                             </div>
                             <div class="col-12">
@@ -332,12 +336,14 @@
                             </div>
                             <div class="text-center">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="inlineRadio1"
                                            value="option1" checked>
                                     <label class="form-check-label" for="inlineRadio1">Cash</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="inlineRadio2"
                                            value="option2">
                                     <label class="form-check-label" for="inlineRadio2">Card</label>
                                 </div>
@@ -379,26 +385,68 @@
         <div class="container" style="padding: 0;">
             <div class="row d-flex justify-content-evenly">
                 <div class="card" style="width: 100rem;">
-                    <div class="card-header bg-primary text-white fw-bold">Add New Item</div>
+                    <div class="card-header bg-primary text-white fw-bold">Edit Item</div>
                     <div class="card-body">
-                        <form class="row g-3 needs-validation" novalidate>
-                            <div class="form-floating col-md-3">
-                                <input type="text" class="form-control" id="ItemCode" placeholder="Item Code">
-                                <label for="ItemCode">Item Code</label>
+                        <form class="row g-3 was-validated" novalidate>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ItemCode" placeholder="Item Code" required>
+                                    <label for="ItemCode">Item Code</label>
+                                    <div class="invalid-feedback">
+                                        Item Code is a required field : Pattern I000-000
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating col-md-3">
-                                <input type="text" class="form-control" id="ItemDescription" placeholder="Item Description">
-                                <label for="ItemDescription">Item Description</label>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ItemDescription" placeholder="Item Description" required>
+                                    <label for="ItemDescription">Item Description</label>
+                                    <div class="invalid-feedback">
+                                        Item Description is a required field : Minimum 5, Maximum 20 Space Allowed
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating col-md-3">
-                                <input type="text" class="form-control" id="ItemPrice" placeholder="Item Price">
-                                <label for="ItemPrice">Item Price</label>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ItemQty" placeholder="Item Qty" required>
+                                    <label for="ItemQty">Item Qty</label>
+                                    <div class="invalid-feedback">
+                                        Item Qty is a required field : Only number
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-3 text-center">
-                                <button type="button" class="btn btn-success btn-lg">Add</button>
-                                <button type="reset" class="btn btn-danger btn-lg">Clear</button>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                        <input type="text" class="form-control" id="ItemPrice" placeholder="Item Price" required>
+                                    <label for="ItemPrice">Item Price</label>
+                                    <div class="invalid-feedback">
+                                        Item Price is a required field : Pattern : 100.00 or 100
+                                    </div>
+                                </div>
                             </div>
                         </form>
+                        <div class="row pt-3 text-center">
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-success btn-lg" id="btnAddItem">Add Item
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-danger btn-lg" id="btnDeleteItem">Remove
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-warning btn-lg" id="btnUpdateItem">Update
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-info btn-lg" id="btnGetAllItem">Get All
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-danger btn-lg" id="btnClearItemFrom">Clear All
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -420,95 +468,53 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-evenly">
-                <div class="card" style="width: 100rem; max-height: 287px; overflow-y: auto;">
+                <div class="card" style="width: 100rem; max-height: 222px; overflow-y: auto;">
                     <div class="card-body">
                         <table class="table text-center">
                             <thead class="table-primary">
                             <tr>
                                 <th>Item Code</th>
                                 <th>Item Description</th>
+                                <th>Item Quantity</th>
                                 <th>Item Price</th>
-                                <th>Options</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tblItem">
                             <tr>
                                 <td>I001</td>
                                 <td>Dhal 1Kg</td>
+                                <td>40</td>
                                 <td>125</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>I002</td>
                                 <td>Red Rice 5KG</td>
+                                <td>20</td>
                                 <td>1350</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>I003</td>
                                 <td>White Rice 10KG</td>
+                                <td>25</td>
                                 <td>1850</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>I004</td>
                                 <td>Sugar 1KG</td>
+                                <td>15</td>
                                 <td>110</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>I005</td>
                                 <td>Orient Green Gram 500g</td>
+                                <td>30</td>
                                 <td>120</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>I002</td>
                                 <td>Anchor F/C Milk powder 1Kg</td>
+                                <td>20</td>
                                 <td>600</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -539,30 +545,68 @@
         <div class="container" style="padding: 0;">
             <div class="row d-flex justify-content-evenly">
                 <div class="card" style="width: 100rem;">
-                    <div class="card-header bg-primary text-white fw-bold">Add New Customer</div>
+                    <div class="card-header bg-primary text-white fw-bold">Edit Customer</div>
                     <div class="card-body">
-                        <form class="row g-3 needs-validation" novalidate>
-                            <div class="form-floating col-md-2">
-                                <input type="text" class="form-control" id="CustomerID" placeholder="Customer ID">
-                                <label for="CustomerID">Customer ID</label>
+                        <form class="row g-3 was-validated" novalidate>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="CustomerID" placeholder="Customer ID" required>
+                                    <label for="CustomerID">Customer ID</label>
+                                    <div class="invalid-feedback">
+                                        Customer ID is a required field : Pattern C000-000
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating col-md-3">
-                                <input type="text" class="form-control" id="CustomerName" placeholder="Customer Name">
-                                <label for="CustomerName">Customer Name</label>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="CustomerName" placeholder="Customer Name" required>
+                                    <label for="CustomerName">Customer Name</label>
+                                    <div class="invalid-feedback">
+                                        Customer Name is a required field : Minimum 5, Maximum 20 Space Allowed
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating col-md-3">
-                                <input type="text" class="form-control" id="CustomerAddress" placeholder="Customer Address">
-                                <label for="CustomerAddress">Customer Address</label>
+                            <div class="col-md-5">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="CustomerAddress" placeholder="Customer Address" required>
+                                    <label for="CustomerAddress">Customer Address</label>
+                                    <div class="invalid-feedback">
+                                        Customer Address is a required field : Minimum 7
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating col-md-2">
-                                <input type="text" class="form-control" id="CustomerSalary" placeholder="Customer Salary">
-                                <label for="CustomerSalary">Customer Salary</label>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <button type="button" class="btn btn-success btn-lg" id="btnAddCustomer">Add</button>
-                                <button type="reset" class="btn btn-danger btn-lg" id="btnClearCustomerFrom">Clear</button>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="CustomerSalary" placeholder="Customer Salary" required>
+                                    <label for="CustomerSalary">Customer Salary</label>
+                                    <div class="invalid-feedback">
+                                        Customer Salary is a required field : Pattern : 100.00 or 100
+                                    </div>
+                                </div>
                             </div>
                         </form>
+                        <div class="row pt-3 text-center">
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-success btn-lg" id="btnAddCustomer">Add Customer
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-danger btn-lg" id="btnDeleteCustomer">Remove
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-warning btn-lg" id="btnUpdateCustomer">Update
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-info btn-lg" id="btnGetAllCustomer">Get All
+                                </button>
+                            </div>
+                            <div class="col-md text-center">
+                                <button type="button" class="btn btn-danger btn-lg" id="btnClearCustomerFrom">Clear All
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -584,7 +628,7 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-evenly">
-                <div class="card" style="width: 100rem; max-height: 287px; overflow-y: auto;">
+                <div class="card" style="width: 100rem; max-height: 223px; overflow-y: auto;">
                     <div class="card-body">
                         <table class="table text-center">
                             <thead class="table-primary">
@@ -593,7 +637,6 @@
                                 <th>Customer Name</th>
                                 <th>Customer Address</th>
                                 <th>Customer Salary</th>
-                                <th>Options</th>
                             </tr>
                             </thead>
                             <tbody id="tblCustomer">
@@ -602,42 +645,18 @@
                                 <td>Gunasekara</td>
                                 <td>Kalutara</td>
                                 <td>25000</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>C002</td>
                                 <td>Saman</td>
                                 <td>Panadura</td>
                                 <td>32000</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>C003</td>
                                 <td>Saduni</td>
                                 <td>Moratuwa</td>
                                 <td>18000</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="I001">Update
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -701,6 +720,7 @@
 <script src="dto/CustomerDTO.js"></script>
 <script src="dto/ItemDTO.js"></script>
 <script src="controller/CustomerController.js"></script>
+<script src="controller/ItemController.js"></script>
 <!--scripts end-->
 
 </body>

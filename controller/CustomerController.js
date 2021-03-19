@@ -15,12 +15,13 @@ $('#btnClearCustomerFrom').click(function () {
 });
 
 //load all customers
-$("#btnGetAll").click(function () {
+$("#btnGetAllCustomer").click(function () {
     loadAllCustomerToTheTable();
 });
 
 
-function deleteCustomerRecord(cusID) {
+$("#btnDeleteCustomer").click(function () {
+    let cusID = $("#CustomerID").val();
     let option=confirm(`Do you want to delete ID:${cusID}`);
     if (option){
         let res=deleteCustomer(cusID);
@@ -33,7 +34,8 @@ function deleteCustomerRecord(cusID) {
     }
     loadAllCustomerToTheTable();
     clearAllCustomerText();
-}
+});
+
 
 $("#btnUpdateCustomer").click(function () {
     let cusID = $("#CustomerID").val();
@@ -47,7 +49,7 @@ $("#btnUpdateCustomer").click(function () {
         if (res){
             alert("Customer Updated");
         }else{
-            alert("Update Faild");
+            alert("Update Failed");
         }
     }
     loadAllCustomerToTheTable();
@@ -74,7 +76,8 @@ $("#CustomerID").on('keyup', function (eObj) {
 // save customer
 function saveCustomer(id, name, address, salary) {
     let customer = new CustomerDTO(id, name, address, salary);
-    customerTable.push(customer);// customer aded
+    console.log(customer.toString());
+    customerTable.push(customer);// customer added
 
     // load the table
     loadAllCustomerToTheTable();
@@ -130,7 +133,7 @@ function loadAllCustomerToTheTable() {
         let address = allCustomers[i].getCustomerAddress();
         let salary = allCustomers[i].getCustomerSalary();
 
-        var row = `<tr><td>${id}</td><td>${name}</td><td>${address}</td><td>${salary}</td><td><div class="btn-group" role="group" aria-label="Basic outlined example"><button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever=${id} id="btnUpdateCustomerForm">Update</button><button type="button" class="btn btn-outline-danger" onclick="deleteCustomerRecord(${id})">Delete</button></div></td></tr>`;
+        var row = `<tr><td>${id}</td><td>${name}</td><td>${address}</td><td>${salary}</td></tr>`;
         $('#tblCustomer').append(row);
     }
 }
