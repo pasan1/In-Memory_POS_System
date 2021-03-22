@@ -270,30 +270,9 @@
                                 <th>Unit Price</th>
                                 <th>Qty</th>
                                 <th>Total</th>
-                                <th>Options</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>I001</td>
-                                <td>Dhal</td>
-                                <td>125</td>
-                                <td>2</td>
-                                <td>250</td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-dark">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>I002</td>
-                                <td>Red Rice 5KG</td>
-                                <td>1350</td>
-                                <td>1</td>
-                                <td>1350</td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-dark">Edit</button>
-                                </td>
-                            </tr>
+                            <tbody id="tblOrderItems">
                             </tbody>
                         </table>
                     </div>
@@ -313,7 +292,7 @@
                             <div class="form-group row">
                                 <label for="Discount" class="col-3 col-form-label">Discount :</label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" id="Discount" placeholder="Discount">
+                                    <input type="number" class="form-control" id="Discount" placeholder="Discount">
                                 </div>
                                 <label for="Discount" class="col-1 col-form-label">%</label>
                             </div>

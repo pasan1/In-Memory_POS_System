@@ -1,5 +1,10 @@
+let __orderTM = new Array();
+let __orderId = 1;
+let __total = 0;
 
 $('#nav-order').click(function () {
+    clearItemData();
+    $('#orderID').val("O-"+__orderId);
     loadTodayDate();
     loadCustomersToCmb();
     loadItemsToCmb();
@@ -90,5 +95,73 @@ $('#Discount').on('keyup', function (event) {
     if (event.key == "Enter") {
         $('#btnOrderPay').focus();
     }
+
+    let total = $('#FullTotal').val();
+    let discount = $('#Discount').val() / 100;
+
+    let amountPay = total - (total * discount);
+
+    $('#AmountToPaid').val(amountPay);
+
 });
 
+$('#OrderOrderQty').on('keyup', function (event) {
+    if (event.key == "Enter") {
+        $('#btnAddOrderOrderQty').focus();
+    }
+});
+
+function addDataToTable() {
+    $('#tblOrderItems>tr').off('dblclick');
+
+    let code = $('#OrderItemCode').val();
+    let desc = $('#OrderItemName').val();
+    let unitPrice = $('#OrderItemPrice').val();
+    let qty = $('#OrderOrderQty').val();
+    let tot = unitPrice * qty;
+
+    calTotal(tot);
+
+    var row = `<tr><td>${code}</td><td>${desc}</td><td>${unitPrice}</td><td>${qty}</td><td>${tot}</td></tr>`;
+    $('#tblOrderItems').append(row);
+
+    $("#tblOrderItems>tr").on('dblclick',function (){
+        let option = confirm(`Do you want to remove ID: ${code}`);
+        if (option) {
+            $(this).remove();
+        }
+    })
+}
+
+$('#btnAddOrderOrderQty').click(function () {
+    addDataToTable();
+    clearItemData();
+    $('#OrderItemCode').focus();
+});
+
+function clearItemData() {
+    $('#OrderItemName').val("");
+    $('#OrderItemQtyOnHand').val("");
+    $('#OrderItemPrice').val("");
+    $('#OrderOrderQty').val("");
+}
+function clearCustomerData() {
+    $('#OrderCustomerName').val("");
+    $('#OrderCustomerAddress').val("");
+    $('#OrderCustomerSalary').val("");
+}
+
+function calTotal(amount) {
+    __total = __total + amount;
+    $('#FullTotal').val(__total);
+}
+
+$('#btnOrderPay').click(function () {
+    clearCustomerData();
+    __orderId++;
+    $('#FullTotal').val("");
+    $('#Discount').val("");
+    $('#AmountToPaid').val("");
+    $('#tblOrderItems').empty();
+    $('#nav-order').click();
+});
