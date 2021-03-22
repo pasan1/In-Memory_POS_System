@@ -27,7 +27,7 @@
                     <a class="nav-link text-white active fw-bolder" aria-current="page" href="#" onclick="openHome()">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#" onclick="openOrder()">Order</a>
+                    <a class="nav-link text-white" href="#" onclick="openOrder()" id="nav-order">Order</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#" onclick="openItem()">Items</a>
@@ -180,12 +180,11 @@
                         <form class="row g-3 needs-validation" novalidate>
                             <div class="col-12">
                                 <label for="orderID" class="form-label">Order ID</label>
-                                <input type="text" class="form-control" id="orderID" value="O001" required disabled>
+                                <input type="text" class="form-control" id="orderID" value="O001" required>
                             </div>
                             <div class="col-12">
                                 <label for="orderDate" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="orderDate" value="2020-03-01" required
-                                       disabled>
+                                <input type="date" class="form-control" id="orderDate" value="2020-03-01" required disabled>
                             </div>
                         </form>
                     </div>
@@ -198,10 +197,6 @@
                                 <label for="OrderCustomerID" class="form-label">Customer ID</label>
                                 <select class="form-select" id="OrderCustomerID">
                                     <option selected disabled value="">Select Customer ID</option>
-                                    <option>C001</option>
-                                    <option>C002</option>
-                                    <option>C003</option>
-                                    <option>C004</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a valid state.
@@ -210,7 +205,7 @@
                             <div class="col-4">
                                 <label for="OrderNewCustomer" class="form-label"><i>For Add New</i></label>
                                 <button type="button" class="btn btn-outline-success form-control"
-                                        id="OrderNewCustomer">
+                                        id="OrderNewCustomer" onclick="openCustomer()">
                                     <i>New</i></button>
                             </div>
                             <div class="col-12">
@@ -222,8 +217,8 @@
                                 <input type="text" class="form-control" id="OrderCustomerAddress" disabled>
                             </div>
                             <div class="col-6">
-                                <label for="OrderCustomerTele" class="form-label">Telephone</label>
-                                <input type="text" class="form-control" id="OrderCustomerTele" disabled>
+                                <label for="OrderCustomerSalary" class="form-label">Salary</label>
+                                <input type="text" class="form-control" id="OrderCustomerSalary" disabled>
                             </div>
                         </form>
                     </div>
@@ -236,14 +231,10 @@
                                 <label for="OrderItemCode" class="form-label">Item Code</label>
                                 <select class="form-select" id="OrderItemCode">
                                     <option selected disabled value="">Select Code</option>
-                                    <option>I001</option>
-                                    <option>I002</option>
-                                    <option>I003</option>
-                                    <option>I004</option>
                                 </select>
-                                <div class="invalid-feedback">
+                                <span class="invalid-feedback">
                                     Please select a valid state.
-                                </div>
+                                </span>
                             </div>
                             <div class="col-8">
                                 <label for="OrderItemName" class="form-label">Item Name</label>
@@ -260,8 +251,8 @@
                             <div class="col-12">
                                 <label for="OrderOrderQty" class="form-label">Order Qty</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="OrderOrderQty">
-                                    <button class="btn btn-outline-success" type="button">Add</button>
+                                    <input type="number" class="form-control" id="OrderOrderQty">
+                                    <button class="btn btn-outline-success" type="button" id="btnAddOrderOrderQty">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -351,10 +342,10 @@
                             <br><br>
                             <div class="form-group row text-center">
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-success">Pay</button>
+                                    <button type="button" class="btn btn-success" id="btnOrderPay">Pay</button>
                                 </div>
                                 <div class="col-6">
-                                    <button type="reset" class="btn btn-danger">Cancel</button>
+                                    <button type="reset" class="btn btn-danger" id="btnOrderCancel">Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -392,7 +383,7 @@
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="ItemCode" placeholder="Item Code" required>
                                     <label for="ItemCode">Item Code</label>
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback" id="lblErrorItemCode">
                                         Item Code is a required field : Pattern I000-000
                                     </div>
                                 </div>
@@ -401,25 +392,25 @@
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="ItemDescription" placeholder="Item Description" required>
                                     <label for="ItemDescription">Item Description</label>
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback" id="lblErrorItemDescription">
                                         Item Description is a required field : Minimum 5, Maximum 20 Space Allowed
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="ItemQty" placeholder="Item Qty" required>
+                                    <input type="number" class="form-control" id="ItemQty" placeholder="Item Qty" required>
                                     <label for="ItemQty">Item Qty</label>
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback" id="lblErrorItemQty">
                                         Item Qty is a required field : Only number
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-floating">
-                                        <input type="text" class="form-control" id="ItemPrice" placeholder="Item Price" required>
+                                        <input type="number" class="form-control" id="ItemPrice" placeholder="Item Price" required>
                                     <label for="ItemPrice">Item Price</label>
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback" id="lblErrorItemPrice">
                                         Item Price is a required field : Pattern : 100.00 or 100
                                     </div>
                                 </div>
@@ -461,7 +452,7 @@
                                 <label for="ItemSearch">Search By Code / Description</label>
                             </div>
                             <div class="col-md-2 text-center">
-                                <button type="reset" class="btn btn-danger btn-lg">Clear</button>
+                                <button type="reset" class="btn btn-danger btn-lg" id="btnClearItemSearch">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -552,36 +543,28 @@
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="CustomerID" placeholder="Customer ID" required>
                                     <label for="CustomerID">Customer ID</label>
-                                    <div class="invalid-feedback">
-                                        Customer ID is a required field : Pattern C000-000
-                                    </div>
+                                    <div class="invalid-feedback" id="lblErrorCustomerId"></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="CustomerName" placeholder="Customer Name" required>
                                     <label for="CustomerName">Customer Name</label>
-                                    <div class="invalid-feedback">
-                                        Customer Name is a required field : Minimum 5, Maximum 20 Space Allowed
-                                    </div>
+                                    <div class="invalid-feedback" id="lblErrorCustomerName"></div>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="CustomerAddress" placeholder="Customer Address" required>
                                     <label for="CustomerAddress">Customer Address</label>
-                                    <div class="invalid-feedback">
-                                        Customer Address is a required field : Minimum 7
-                                    </div>
+                                    <div class="invalid-feedback" id="lblErrorCustomerAddress"></div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="CustomerSalary" placeholder="Customer Salary" required>
+                                    <input type="number" class="form-control" id="CustomerSalary" placeholder="Customer Salary" required>
                                     <label for="CustomerSalary">Customer Salary</label>
-                                    <div class="invalid-feedback">
-                                        Customer Salary is a required field : Pattern : 100.00 or 100
-                                    </div>
+                                    <div class="invalid-feedback" id="lblErrorCustomerSalary"></div>
                                 </div>
                             </div>
                         </form>
@@ -617,11 +600,11 @@
                     <div class="card-body">
                         <form class="row g-3 needs-validation">
                             <div class="form-floating col-md-10">
-                                <input type="text" class="form-control" id="Search" placeholder="Search">
-                                <label for="Search">Search By Code / Description</label>
+                                <input type="text" class="form-control" id="SearchCustomer" placeholder="Search">
+                                <label for="SearchCustomer">Search By Code / Description</label>
                             </div>
                             <div class="col-md-2 text-center">
-                                <button type="reset" class="btn btn-danger btn-lg">Clear</button>
+                                <button type="reset" class="btn btn-danger btn-lg" id="btnClearCustomerSearch">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -705,10 +688,7 @@
 <!--Modal-->
 
 <!--footer start-->
-<div class="footer-text btn-primary text-center">Developed by <a href="https://pasanabeysekara.com/" target="_blank"
-                                                                 style="text-decoration: none" class="text-white"><b>Pasan
-    Abeysekara</b></a> @ IJSE
-</div>
+<div class="footer-text btn-primary text-center">Developed by <a href="https://pasanabeysekara.com/" target="_blank" style="text-decoration: none" class="text-white"><b>Pasan Abeysekara</b></a> @ IJSE</div>
 <!--footer end-->
 
 <!--scripts start-->
@@ -719,8 +699,11 @@
 <script src="db/database.js"></script>
 <script src="dto/CustomerDTO.js"></script>
 <script src="dto/ItemDTO.js"></script>
+<script src="dto/OrderDTO.js"></script>
+<script src="dto/OrderDetailDTO.js"></script>
 <script src="controller/CustomerController.js"></script>
 <script src="controller/ItemController.js"></script>
+<script src="controller/OrderController.js"></script>
 <!--scripts end-->
 
 </body>

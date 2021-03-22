@@ -7,7 +7,7 @@ $('#btnAddCustomer').click(function () {
     let cusSalary = $("#CustomerSalary").val();
 
     let res = saveCustomer(cusID, cusName, cusAddress, cusSalary);
-    if(res)clearAllCustomerText();
+    if (res) clearAllCustomerText();
 });
 
 $('#btnClearCustomerFrom').click(function () {
@@ -19,15 +19,19 @@ $("#btnGetAllCustomer").click(function () {
     loadAllCustomerToTheTable();
 });
 
+$("#btnClearCustomerSearch").click(function () {
+    $("#SearchCustomer").val("");
+});
+
 
 $("#btnDeleteCustomer").click(function () {
     let cusID = $("#CustomerID").val();
-    let option=confirm(`Do you want to delete ID:${cusID}`);
-    if (option){
-        let res=deleteCustomer(cusID);
-        if (res){
+    let option = confirm(`Do you want to delete ID:${cusID}`);
+    if (option) {
+        let res = deleteCustomer(cusID);
+        if (res) {
             alert("Customer Deleted");
-        } else{
+        } else {
             alert("Delete Failed")
         }
 
@@ -43,12 +47,12 @@ $("#btnUpdateCustomer").click(function () {
     let cusAddress = $("#CustomerAddress").val();
     let cusSalary = $("#CustomerSalary").val();
 
-    let option=confirm(`Do you want to Update Customer ID:${cusID}`);
-    if (option){
-        let res= updateCustomer(cusID, cusName, cusAddress, cusSalary);
-        if (res){
+    let option = confirm(`Do you want to Update Customer ID:${cusID}`);
+    if (option) {
+        let res = updateCustomer(cusID, cusName, cusAddress, cusSalary);
+        if (res) {
             alert("Customer Updated");
-        }else{
+        } else {
             alert("Update Failed");
         }
     }
@@ -57,7 +61,7 @@ $("#btnUpdateCustomer").click(function () {
 
 });
 
-$("#CustomerID").on('keyup', function (eObj) {
+$("#SearchCustomer").on('keyup', function (eObj) {
     if (eObj.key == "Enter") {
         let customer = searchCustomer($(this).val());
         if (customer != null) {
@@ -65,6 +69,7 @@ $("#CustomerID").on('keyup', function (eObj) {
             $("#CustomerName").val(customer.getCustomerName());
             $("#CustomerAddress").val(customer.getCustomerAddress());
             $("#CustomerSalary").val(customer.getCustomerSalary());
+            $("#SearchCustomer").val("");
         } else {
             clearAllCustomerText();
         }
@@ -100,6 +105,7 @@ function deleteCustomer(id) {
         return false;
     }
 }
+
 // search customer
 function searchCustomer(id) {
     for (var i in customerTable) {
@@ -125,6 +131,8 @@ function updateCustomer(id, name, address, salary) {
 
 //Other function
 function loadAllCustomerToTheTable() {
+    $('#tblCustomer>tr').off('click');
+
     let allCustomers = getAllCustomers();
     $('#tblCustomer').empty(); // clear all the table before adding for avoid duplicate
     for (var i in allCustomers) {
@@ -135,6 +143,18 @@ function loadAllCustomerToTheTable() {
 
         var row = `<tr><td>${id}</td><td>${name}</td><td>${address}</td><td>${salary}</td></tr>`;
         $('#tblCustomer').append(row);
+
+        $('#tblCustomer>tr').click(function () {
+            let id = $(this).children('td:eq(0)').text();
+            let name = $(this).children('td:eq(1)').text();
+            let address = $(this).children('td:eq(2)').text();
+            let salary = $(this).children('td:eq(3)').text();
+
+            $('#CustomerID').val(id);
+            $('#CustomerName').val(name);
+            $('#CustomerAddress').val(address);
+            $('#CustomerSalary').val(salary);
+        });
     }
 }
 
@@ -143,4 +163,74 @@ function clearAllCustomerText() {
     $("#CustomerName").val("");
     $("#CustomerAddress").val("");
     $("#CustomerSalary").val("");
+    $("#SearchCustomer").val("");
 }
+
+//----------------------------
+$('#CustomerID,#CustomerName,#CustomerAddress,#CustomerSalary').on('keydown', function (event) {
+    if (event.key == "Tab") {
+        event.preventDefault();
+    }
+});
+
+let cusIdRegEx = /^(C000-)[0-9]{1,3}$/;
+let cusNameRegEx = /^[A-z ]{5,20}$/;
+let cusAddressRegEx = /^[A-z0-9,.\/\\ ]{7,}$/;
+let cusSalaryRegEx = /^[0-9.]{2,}$/;
+
+$('#CustomerID').on('keypress', function (event) {
+    if (event.key == "Enter") {
+        $('#CustomerName').focus();
+    }
+    let inputID = $('#CustomerID').val();
+    if (cusIdRegEx.test(inputID)) {
+        $('#CustomerID').css('border', '2px solid green');
+        $('#lblErrorCustomerId').text("");
+    } else {
+        $('#CustomerID').css('border', '2px solid red');
+        $('#lblErrorCustomerId').text('Customer ID is a required field : Pattern C000-000');
+    }
+});
+
+$('#CustomerName').on('keypress', function (event) {
+    if (event.key == "Enter") {
+        $('#CustomerAddress').focus();
+    }
+    let inputID = $('#CustomerName').val();
+    if (cusNameRegEx.test(inputID)) {
+        $('#CustomerName').css('border', '2px solid green');
+        $('#lblErrorCustomerName').text("");
+    } else {
+        $('#CustomerName').css('border', '2px solid red');
+        $('#lblErrorCustomerName').text('Customer Name is a required field : Minimum 5, Maximum 20 Space Allowed');
+    }
+});
+
+$('#CustomerAddress').on('keypress', function (event) {
+    if (event.key == "Enter") {
+        $('#CustomerSalary').focus();
+    }
+    let inputID = $('#CustomerAddress').val();
+    if (cusAddressRegEx.test(inputID)) {
+        $('#CustomerAddress').css('border', '2px solid green');
+        $('#lblErrorCustomerAddress').text("");
+    } else {
+        $('#CustomerAddress').css('border', '2px solid red');
+        $('#lblErrorCustomerAddress').text('Customer Address is a required field : Minimum 7');
+    }
+});
+
+$('#CustomerSalary').on('keypress', function (event) {
+    if (event.key == "Enter") {
+        $('#btnAddCustomer').focus();
+    }
+    let inputID = $('#CustomerSalary').val();
+    if (cusSalaryRegEx.test(inputID)) {
+        $('#CustomerSalary').css('border', '2px solid green');
+        $('#lblErrorCustomerSalary').text("");
+    } else {
+        $('#CustomerSalary').css('border', '2px solid red');
+        $('#lblErrorCustomerSalary').text('Customer Salary is a required field : Pattern : 100.00 or 100');
+    }
+});
+
